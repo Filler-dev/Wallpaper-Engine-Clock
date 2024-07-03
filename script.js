@@ -11,38 +11,49 @@ const digitSegments = [
     [1, 2, 7, 3, 6]
 ];
 
-let clock_elem, showSeconds = false;
+let clock_elem, showSeconds = false, hourFormat12 = false;
 
 document.addEventListener('DOMContentLoaded', function () {
     clock_elem = document.getElementById("clock");
 
-    const _hours = document.querySelectorAll('.hours');
-    const _minutes = document.querySelectorAll('.minutes');
-    const _seconds = document.querySelectorAll('.seconds');
+    _hours = document.querySelectorAll('.hours');
+    _minutes = document.querySelectorAll('.minutes');
+    _seconds = document.querySelectorAll('.seconds');
 
-    setInterval(function () {
-        const date = new Date();
-        const hours = date.getHours();
-        const minutes = date.getMinutes();
-        const seconds = date.getSeconds();
-
-        setNumber(_hours[0], Math.floor(hours / 10));
-        setNumber(_hours[1], hours % 10);
-        setNumber(_minutes[0], Math.floor(minutes / 10));
-        setNumber(_minutes[1], minutes % 10);
-
-        if (showSeconds) {
-            setNumber(_seconds[0], Math.floor(seconds / 10));
-            setNumber(_seconds[1], seconds % 10);
-        }
-    }, 1000);
+    setInterval(updateClock, 1000);
 });
+
+function updateClock() {
+    const date = new Date();
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+
+    if (hourFormat12) {
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+    }
+
+    setNumber(_hours[0], Math.floor(hours / 10));
+    setNumber(_hours[1], hours % 10);
+    setNumber(_minutes[0], Math.floor(minutes / 10));
+    setNumber(_minutes[1], minutes % 10);
+
+    if (showSeconds) {
+        setNumber(_seconds[0], Math.floor(seconds / 10));
+        setNumber(_seconds[1], seconds % 10);
+    }
+}
 
 window.wallpaperPropertyListener = {
     applyUserProperties: function (properties) {
         if (properties.seconds) {
             showSeconds = properties.seconds.value;
             toggleSeconds();
+        }
+        if (properties.hourformat12) {
+            hourFormat12 = properties.hourformat12.value;
+            updateClock();
         }
     }
 };

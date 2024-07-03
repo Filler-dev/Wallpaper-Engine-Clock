@@ -5,6 +5,14 @@
 	{
 		"properties" : 
 		{
+			"hourformat12" : 
+			{
+				"index" : 1,
+				"order" : 101,
+				"text" : "12 hour format",
+				"type" : "bool",
+				"value" : false
+			},
 			"schemecolor" : 
 			{
 				"order" : 0,
@@ -16,7 +24,7 @@
 			{
 				"index" : 0,
 				"order" : 100,
-				"text" : "seconds",
+				"text" : "Show seconds",
 				"type" : "bool",
 				"value" : false
 			}
@@ -28,6 +36,6 @@
 	"tags" : [ "Technology" ],
 	"title" : "White Clock/Black Background",
 	"type" : "web",
-	"version" : 0,
+	"version" : 1,
 	"visibility" : "public"
 }
