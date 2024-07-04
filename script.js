@@ -11,11 +11,9 @@ const digitSegments = [
     [1, 2, 7, 3, 6]
 ];
 
-let clock_elem, showSeconds = false, hourFormat12 = false;
+let showSeconds = false, hourFormat12 = false;
 
 document.addEventListener('DOMContentLoaded', function () {
-    clock_elem = document.getElementById("clock");
-
     _hours = document.querySelectorAll('.hours');
     _minutes = document.querySelectorAll('.minutes');
     _seconds = document.querySelectorAll('.seconds');
@@ -27,7 +25,6 @@ function updateClock() {
     const date = new Date();
     let hours = date.getHours();
     const minutes = date.getMinutes();
-    const seconds = date.getSeconds();
 
     if (hourFormat12) {
         hours = hours % 12;
@@ -40,6 +37,7 @@ function updateClock() {
     setNumber(_minutes[1], minutes % 10);
 
     if (showSeconds) {
+        const seconds = date.getSeconds();
         setNumber(_seconds[0], Math.floor(seconds / 10));
         setNumber(_seconds[1], seconds % 10);
     }
@@ -83,8 +81,10 @@ function setNumber(digit, number) {
 }
 
 function toggleSeconds() {
-    const secondsElements = document.querySelectorAll('.seconds');
-    secondsElements.forEach(element => {
-        element.style.display = showSeconds ? 'inline-block' : 'none';
-    });
+    if (showSeconds) {
+        const date = new Date();
+        const seconds = date.getSeconds();
+        setNumber(_seconds[0], Math.floor(seconds / 10));
+        setNumber(_seconds[1], seconds % 10);
+    }
 }
