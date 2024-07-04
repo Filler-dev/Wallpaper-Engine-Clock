@@ -81,10 +81,8 @@ function setNumber(digit, number) {
 }
 
 function toggleSeconds() {
-    if (showSeconds) {
-        const date = new Date();
-        const seconds = date.getSeconds();
-        setNumber(_seconds[0], Math.floor(seconds / 10));
-        setNumber(_seconds[1], seconds % 10);
-    }
+    const secondsElements = document.querySelectorAll('.seconds');
+    secondsElements.forEach(element => {
+        element.style.display = showSeconds ? 'inline-block' : 'none';
+    });
 }
